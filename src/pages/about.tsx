@@ -4,12 +4,15 @@ import { client } from 'apollo-client';
 import { gql } from '@apollo/client';
 import { mapEducation } from 'utils/mappings/mapEducation';
 import { mapJobs } from 'utils/mappings/mapJobs';
+
 import { NextPage } from 'next';
+
 import { AnimatePage } from 'Atoms/AnimatePage';
 import { Button } from 'Atoms/Button';
 import { Container } from 'Atoms/Container';
 import { Education } from 'Organisms/Education';
 import { Icon } from 'Atoms/Icon';
+
 import { SeoHead } from 'Atoms/SeoHead';
 import { WorkExperience } from 'Organisms/WorkExperience';
 
@@ -19,7 +22,7 @@ interface IProps {
 	education: IEducation[];
 }
 
-const AboutPage: NextPage<IProps> = ({  jobs, education }) => {
+const AboutPage: NextPage<IProps> = ({ jobs, education }) => {
 	return (
 		<AnimatePage>
 			<SeoHead
