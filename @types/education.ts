@@ -11,5 +11,5 @@ export interface IRawEducation {
 	course: string;
 	date: string;
 	institute: IRawCompany;
-	courseContents: Array<{ skill: string }>;
+	courseContents: Array<{ name: string }>;
 }

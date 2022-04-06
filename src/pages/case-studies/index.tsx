@@ -35,32 +35,36 @@ const CaseStudiesPage: NextPage<IProps> = ({ caseStudies }) => {
 export async function getStaticProps() {
 	const { data } = await client.query({
 		query: gql`
-			query CaseStudiesQuery {
-				caseStudies(orderBy: updatedAt_DESC) {
-					id
-					title
-					slug
-					seoDescription
-					client {
-						name
-						logo {
-							url
-						}
-					}
-					content {
-						markdown
-					}
-					technologies {
-						skill
-					}
-					primaryImage {
-						url
-					}
-					secondaryImages {
-						url
-					}
+		query CaseStudiesQuery {
+			caseStudies(orderBy: updatedAt_DESC) {
+			  id
+			  title
+			  slug
+			  seoDescription
+			  client {
+				name
+				logo {
+				  url
 				}
+			  }
+			  content {
+				markdown
+			  }
+			  technologies {
+				... on Skill {
+				  name
+				}
+			  }
+			  primaryImage {
+				url
+			  }
+			  secondaryImages {
+				url
+			  }
+
 			}
+		  }
+		  
 		`,
 	});
 

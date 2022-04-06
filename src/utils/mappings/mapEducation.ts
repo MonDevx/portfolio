@@ -9,5 +9,5 @@ export const mapEducation = (educationResponse: IRawEducation[]) =>
 			url: institute.url,
 			logo: institute.logo.url,
 		},
-		technologies: courseContents.map(({ skill }) => skill),
+		technologies: courseContents.map(({ name }) => name),
 	}));

@@ -11,7 +11,7 @@ export const mapJobs = (jobsResponse: IRawJob[]) =>
 			jobTitle,
 			fromDate,
 			toDate,
-			technologies: skills.map(({ skill }) => skill),
+			technologies: skills.map(({ name }) => name),
 			description: description.markdown,
 		})
 	);

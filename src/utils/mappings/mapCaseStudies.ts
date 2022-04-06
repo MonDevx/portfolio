@@ -24,7 +24,7 @@ export const mapCaseStudies = (caseStudiesResponse: IRawCaseStudy[]) =>
 				logo: client.logo.url,
 			},
 			content: content.markdown,
-			technologies: technologies.map(({ skill }) => skill),
+			technologies: technologies.map(({ name }) => name),
 			primaryImage: primaryImage.url,
 			secondaryImages: secondaryImages.map(({ url }) => url),
 		})

@@ -127,7 +127,9 @@ export async function getStaticProps({ params }: Params) {
 						markdown
 					}
 					technologies {
-						skill
+						... on Skill {
+							name
+						  }
 					}
 					primaryImage {
 						url

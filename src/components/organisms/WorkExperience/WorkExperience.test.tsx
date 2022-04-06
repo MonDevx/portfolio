@@ -1,4 +1,4 @@
-import { mockJobs } from 'MockData';
+import { mockJobs } from '../../../mockData';
 import { render } from '@testing-library/react';
 import { WorkExperience } from '../WorkExperience';
 

@@ -14,7 +14,7 @@ export interface IRawJob {
 	jobTitle: string;
 	fromDate: string;
 	toDate: string | null;
-	skills: Array<{ skill: string }>;
+	skills: Array<{ name: string }>;
 	description: {
 		markdown: string;
 	};

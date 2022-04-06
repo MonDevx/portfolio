@@ -1,4 +1,4 @@
-import { mockPodcast } from 'MockData';
+import { mockPodcast } from '../../../mockData';
 import { Podcast } from '../Podcast';
 import { render } from '@testing-library/react';
 

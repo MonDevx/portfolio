@@ -1,4 +1,4 @@
-import { mockJobs } from 'MockData';
+import { mockJobs } from '../../../mockData';
 import { WorkExperience, WorkExperienceProps } from './WorkExperience';
 
 export default {

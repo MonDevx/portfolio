@@ -11,15 +11,7 @@ export const mockCaseStudy: ICaseStudy = {
 	},
 	content: 'Case Study coming soon\n',
 	technologies: [
-		'React',
-		'Express',
-		'Next.js',
-		'Rest APIs',
-		'TypeScript',
-		'Redux',
-		'Node.js',
-		'Jest',
-		'Cypress',
+
 	],
 	primaryImage: 'https://media.graphcms.com/1WO5SPTlRd2KnNrJH0hF',
 	secondaryImages: [

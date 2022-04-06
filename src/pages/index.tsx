@@ -5,42 +5,39 @@ import Typed from 'react-typed';
 
 const IndexPage = () => {
 	const talkAbout = [
-		'React',
+		'React.js',
 		'JavaScript',
-		'TypeScript',
-		'GraphQL',
-		'Redux',
-		'Jamstack',
-		'Next.js',
-		'RESTful APIs',
+		'Flutter',
 		'HTML',
 		'CSS',
-		'Gatsby',
-		'Svelte',
+		'VB.net',
+		'Java',
+		'C#',
+		'PL/SQL',
 	];
 
 	return (
 		<AnimatePage>
 			<SeoHead
-				title="Senior Software Engineer and Consultant – Jacob Herper"
+				title="Solution Developer – Peemapod Neamkur"
 				description="A Front-End Software Engineer with a focus on JavaScript and React. I have more than 10 years experience working in software engineering and consulting."
 				keywords={[
 					'Software Engineer',
-					'Jacob Herper',
-					'Software Consulting',
 					'Front-End',
 					'Full-Stack',
 					'React',
-					'TypeScript',
 					'JavaScript',
-					'GraphQL',
 					'CSS',
-					'Tailwind',
+					'MUI',
+					'VB.net',
+					'Java',
+					'C#',
+					'PL/SQL',
 				]}
 			/>
 			<Container>
 				<h1 className="headline mt-20 text-3xl md:text-5xl lg:text-6xl">
-					Hey, I&apos;m Jacob Herper 👋
+					Hey, I&apos;m Peemapod Neamkur 👋
 				</h1>
 				<p className="my-8 text-lg">
 					I am a passionate Software Engineer, specialised in front-end

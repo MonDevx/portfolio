@@ -11,7 +11,7 @@ export interface ICaseStudy {
 		logo: string;
 	};
 	content: string;
-	technologies: string[];
+	technologies: Array<{ name: string }>;
 	primaryImage: string;
 	secondaryImages: string[];
 }
@@ -26,7 +26,7 @@ export interface IRawCaseStudy {
 	content: {
 		markdown: string;
 	};
-	technologies: Array<{ skill: string }>;
+	technologies: Array<{ name: string }>;
 	primaryImage: IImage;
 	secondaryImages: IImage[];
 }
