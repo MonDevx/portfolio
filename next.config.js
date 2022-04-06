@@ -26,6 +26,10 @@ const moduleExports = {
 const sentryWebpackPluginOptions = {
 	silent: false, // Suppresses all logs
 	authToken: process.env.NEXT_PUBLIC_SENTRY_AUTH_TOKEN,
+	deploy:{
+		name:'Peemapod'
+	}
+
 	// For all available options, see:
 	// https://github.com/getsentry/sentry-webpack-plugin#options.
 };

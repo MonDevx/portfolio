@@ -30,7 +30,7 @@
 	"dependencies": {
 		"@apollo/client": "^3.5.7",
 		"@mailchimp/mailchimp_marketing": "^3.0.72",
-		"@sentry/nextjs": "^6.16.1",
+		"@sentry/nextjs": "^6.19.4",
 		"@svgr/webpack": "6.2.0",
 		"autoprefixer": "^10.4.2",
 		"browserslist": "4.19.1",
