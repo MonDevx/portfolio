@@ -3,8 +3,8 @@ const { withSentryConfig } = require('@sentry/nextjs');
 const moduleExports = {
 	poweredByHeader: false,
 	swcMinify: true,
-	assetPrefix: process.env.ASSET_HOST || '',
-	productionBrowserSourceMaps: process.env.NODE_ENV === 'production',
+	assetPrefix: process.env.NEXT_PUBLIC_ASSET_HOST || '',
+	productionBrowserSourceMaps: process.env.NEXT_PUBLIC_NODE_ENV === 'production',
 	webpack(config) {
 		config.module.rules.push({
 			test: /\.svg$/,
@@ -14,9 +14,9 @@ const moduleExports = {
 		return config;
 	},
 	publicRuntimeConfig: {
-		MAILCHIMP_API_KEY: process.env.MAILCHIMP_API_KEY || '',
-		MAILCHIMP_API_SERVER: process.env.MAILCHIMP_API_SERVER || '',
-		MAILCHIMP_AUDIENCE_ID: process.env.MAILCHIMP_AUDIENCE_ID || '',
+		MAILCHIMP_API_KEY: process.env.NEXT_PUBLIC_MAILCHIMP_API_KEY || '',
+		MAILCHIMP_API_SERVER: process.env.NEXT_PUBLIC_MAILCHIMP_API_SERVER || '',
+		MAILCHIMP_AUDIENCE_ID: process.env.NEXT_PUBLIC_MAILCHIMP_AUDIENCE_ID || '',
 	},
 	images: {
 		domains: ['media.graphcms.com'],
