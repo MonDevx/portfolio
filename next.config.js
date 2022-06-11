@@ -19,16 +19,19 @@ const moduleExports = {
 		MAILCHIMP_AUDIENCE_ID: process.env.NEXT_PUBLIC_MAILCHIMP_AUDIENCE_ID || '',
 	},
 	images: {
-		domains: ['media.graphcms.com'],
+
+		domains: [
+			process.env.NEXT_IMAGE_ALLOWED_DOMAINS,
+			process.env.NEXT_IMAGE_ALLOWED_DOMAINS2,
+		],
+		
 	},
 };
 
 const sentryWebpackPluginOptions = {
 	silent: false, // Suppresses all logs
 	authToken: process.env.NEXT_PUBLIC_SENTRY_AUTH_TOKEN,
-	deploy:{
-		name:'Peemapod'
-	}
+
 
 	// For all available options, see:
 	// https://github.com/getsentry/sentry-webpack-plugin#options.

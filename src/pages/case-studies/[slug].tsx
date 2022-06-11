@@ -34,7 +34,7 @@ const CaseStudyPage: NextPage<IProps> = ({ caseStudy }) => {
 	return (
 		<AnimatePage>
 			<SeoHead
-				title={`Case Study: ${title} - Jacob Herper's Case Studies`}
+				title={`Case Study: ${title} - Peemapod Neamkur Case Studies`}
 				description={seoDescription}
 			/>
 			<Container>
@@ -83,7 +83,7 @@ const CaseStudyPage: NextPage<IProps> = ({ caseStudy }) => {
 	);
 };
 
-export async function getStaticPaths() {
+export async function getInitialProps() {
 	const { data } = await client.query({
 		query: gql`
 			query CaseStudiesQuery {
@@ -107,7 +107,7 @@ type Params = {
 	params: { slug: ICaseStudy['slug'] };
 };
 
-export async function getStaticProps({ params }: Params) {
+export async function getServerSideProps({ params }: Params) {
 	const { data } = await client.query({
 		query: gql`
 			query CaseStudyPageQuery($slug: String!) {
