@@ -32,7 +32,7 @@ const moduleExports = {
 };
 
 const sentryWebpackPluginOptions = {
-	silent: false, // Suppresses all logs
+	silent: false, // Keeps Sentry CLI logs enabled
 	authToken: sentryAuthToken,
 
 
