@@ -1,6 +1,8 @@
 const { withSentryConfig } = require('@sentry/nextjs');
 
-const assetPrefix = process.env.NEXT_PUBLIC_ASSET_HOST;
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH;
+const isStaticExport = process.env.NEXT_PUBLIC_STATIC_EXPORT === 'true';
+const assetPrefix = process.env.NEXT_PUBLIC_ASSET_HOST || basePath;
 const sentryAuthToken =
 	process.env.SENTRY_AUTH_TOKEN || process.env.NEXT_PUBLIC_SENTRY_AUTH_TOKEN;
 const imageDomains = [
@@ -11,7 +13,9 @@ const imageDomains = [
 const moduleExports = {
 	poweredByHeader: false,
 	swcMinify: true,
+	...(basePath ? { basePath } : {}),
 	...(assetPrefix ? { assetPrefix } : {}),
+	...(isStaticExport ? { trailingSlash: true } : {}),
 	productionBrowserSourceMaps: process.env.NEXT_PUBLIC_NODE_ENV === 'production',
 	webpack(config) {
 		config.module.rules.push({
@@ -28,6 +32,7 @@ const moduleExports = {
 	},
 	images: {
 		domains: imageDomains,
+		...(isStaticExport ? { unoptimized: true } : {}),
 	},
 };
 

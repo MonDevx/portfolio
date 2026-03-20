@@ -13,10 +13,15 @@ class MyDocument extends Document {
 	}
 
 	render() {
+		const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
+
 		return (
 			<Html lang="en-GB">
 				<Head>
-					<link href="/assets/favicon_light.svg" rel="shortcut icon" />
+					<link
+						href={`${basePath}/assets/favicon_light.svg`}
+						rel="shortcut icon"
+					/>
 				</Head>
 				<body className="antialiased bg-grey-200 text-off-black dark:bg-off-black dark:text-off-white">
 					<Main />

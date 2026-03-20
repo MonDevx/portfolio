@@ -1,6 +1,5 @@
 import format from 'date-fns/format';
 import { ICompany } from '@types';
-import Image from 'next/image';
 
 import { Box } from 'Atoms/Box';
 
@@ -16,7 +15,7 @@ const School = ({ institute, course, date, technologies }: SchoolProps) => {
 		<Box>
 			<div className="flex gap-4 items-center">
 				{institute.logo && (
-					<Image
+					<img
 						src={institute.logo}
 						alt={institute.name}
 						width={64}

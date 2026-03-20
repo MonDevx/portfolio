@@ -1,4 +1,4 @@
-name: Validate Firebase deployment on PR
+name: Validate GitHub Pages deployment on PR
 
 on: pull_request
 
@@ -21,6 +21,9 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Build application
+        env:
+          NEXT_PUBLIC_STATIC_EXPORT: 'true'
+          NEXT_PUBLIC_BASE_PATH: '/portfolio'
         run: yarn build
 
       - name: Run deployment regression test

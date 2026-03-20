@@ -2,7 +2,7 @@ import { ICaseStudy } from '@types';
 
 import { client } from 'apollo-client';
 import { gql } from '@apollo/client';
-import Image from 'next/image';
+import { mockCaseStudy } from '../../mockData';
 import Markdown from 'react-markdown';
 import { NextPage } from 'next';
 
@@ -18,6 +18,11 @@ import { mdxComponents } from 'utils/mdxComponents';
 interface IProps {
 	caseStudy: ICaseStudy;
 }
+
+const hasGraphCmsConfig = Boolean(
+	process.env.NEXT_PUBLIC_GRAPHCMS_PROJECT_ID &&
+	process.env.NEXT_PUBLIC_GRAPHCMS_ENV
+);
 
 const CaseStudyPage: NextPage<IProps> = ({ caseStudy }) => {
 	const {
@@ -45,7 +50,7 @@ const CaseStudyPage: NextPage<IProps> = ({ caseStudy }) => {
 					<div className="flex flex-col h-full justify-center">
 						<strong className="mb-2 text-sm">Client:</strong>
 						<div className="mb-4 flex gap-2 items-center">
-							<Image
+							<img
 								src={client.logo}
 								alt={client.name}
 								width={32}
@@ -83,71 +88,122 @@ const CaseStudyPage: NextPage<IProps> = ({ caseStudy }) => {
 	);
 };
 
-export async function getInitialProps() {
-	const { data } = await client.query({
-		query: gql`
-			query CaseStudiesQuery {
-				caseStudies {
-					slug
-					title
+export async function getStaticPaths() {
+	if (!hasGraphCmsConfig) {
+		return {
+			paths: [{ params: { slug: mockCaseStudy.slug } }],
+			fallback: false,
+		};
+	}
+
+	try {
+		const { data } = await client.query({
+			query: gql`
+				query CaseStudiesQuery {
+					caseStudies {
+						slug
+						title
+					}
 				}
 			}
 		`,
-	});
+		});
 
-	return {
-		paths: data.caseStudies.map(({ slug }: ICaseStudy) => ({
-			params: { slug },
-		})),
-		fallback: false,
-	};
+		return {
+			paths: data.caseStudies.map(({ slug }: ICaseStudy) => ({
+				params: { slug },
+			})),
+			fallback: false,
+		};
+	} catch {
+		return {
+			paths: [{ params: { slug: mockCaseStudy.slug } }],
+			fallback: false,
+		};
+	}
 }
 
 type Params = {
-	params: { slug: ICaseStudy['slug'] };
+	params?: { slug: ICaseStudy['slug'] };
 };
 
-export async function getServerSideProps({ params }: Params) {
-	const { data } = await client.query({
-		query: gql`
-			query CaseStudyPageQuery($slug: String!) {
-				caseStudy(where: { slug: $slug }) {
-					id
-					title
-					slug
-					projectUrl
-					seoDescription
-					client {
-						name
-						logo {
+export async function getStaticProps({ params }: Params) {
+	if (!params?.slug) {
+		return {
+			notFound: true,
+		};
+	}
+
+	if (!hasGraphCmsConfig) {
+		return params.slug === mockCaseStudy.slug
+			? {
+					props: {
+						caseStudy: mockCaseStudy,
+					},
+			  }
+			: {
+					notFound: true,
+			  };
+	}
+
+	try {
+		const { data } = await client.query({
+			query: gql`
+				query CaseStudyPageQuery($slug: String!) {
+					caseStudy(where: { slug: $slug }) {
+						id
+						title
+						slug
+						projectUrl
+						seoDescription
+						client {
+							name
+							logo {
+								url
+							}
+						}
+						content {
+							markdown
+						}
+						technologies {
+							... on Skill {
+								name
+							  }
+						}
+						primaryImage {
+							url
+						}
+						secondaryImages {
 							url
 						}
 					}
-					content {
-						markdown
-					}
-					technologies {
-						... on Skill {
-							name
-						  }
-					}
-					primaryImage {
-						url
-					}
-					secondaryImages {
-						url
-					}
 				}
-			}
-		`,
-		variables: { slug: params.slug },
-	});
+			`,
+			variables: { slug: params.slug },
+		});
 
-	return {
-		props: {
-			caseStudy: mapCaseStudies([data.caseStudy])[0],
-		},
-	};
+		if (!data.caseStudy) {
+			return {
+				notFound: true,
+			};
+		}
+
+		return {
+			props: {
+				caseStudy: mapCaseStudies([data.caseStudy])[0],
+			},
+		};
+	} catch {
+		return params.slug === mockCaseStudy.slug
+			? {
+					props: {
+						caseStudy: mockCaseStudy,
+					},
+			  }
+			: {
+					notFound: true,
+			  };
+	}
 }
 
 export default CaseStudyPage;

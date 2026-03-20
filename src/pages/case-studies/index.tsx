@@ -1,5 +1,6 @@
 import { client } from 'apollo-client';
 import { gql } from '@apollo/client';
+import { mockCaseStudy } from '../../mockData';
 import { ICaseStudy } from '@types';
 import { mapCaseStudies } from 'utils/mappings/mapCaseStudies';
 import { NextPage } from 'next';
@@ -12,6 +13,11 @@ import { SeoHead } from 'Atoms/SeoHead';
 interface IProps {
 	caseStudies: ICaseStudy[];
 }
+
+const hasGraphCmsConfig = Boolean(
+	process.env.NEXT_PUBLIC_GRAPHCMS_PROJECT_ID &&
+	process.env.NEXT_PUBLIC_GRAPHCMS_ENV
+);
 
 const CaseStudiesPage: NextPage<IProps> = ({ caseStudies }) => {
 	return (
@@ -32,47 +38,63 @@ const CaseStudiesPage: NextPage<IProps> = ({ caseStudies }) => {
 	);
 };
 
-export async function getServerSideProps() {
-	const { data } = await client.query({
-		query: gql`
-		query CaseStudiesQuery {
-			caseStudies(orderBy: updatedAt_DESC) {
-			  id
-			  title
-			  slug
-			  seoDescription
-			  client {
-				name
-				logo {
-				  url
+export async function getStaticProps() {
+	if (!hasGraphCmsConfig) {
+		return {
+			props: {
+				caseStudies: [mockCaseStudy],
+			},
+		};
+	}
+
+	try {
+		const { data } = await client.query({
+			query: gql`
+			query CaseStudiesQuery {
+				caseStudies(orderBy: updatedAt_DESC) {
+				  id
+				  title
+				  slug
+				  seoDescription
+				  client {
+					name
+					logo {
+					  url
+					}
+				  }
+				  content {
+					markdown
+				  }
+				  technologies {
+					... on Skill {
+					  name
+					}
+				  }
+				  primaryImage {
+					url
+				  }
+				  secondaryImages {
+					url
+				  }
+
 				}
 			  }
-			  content {
-				markdown
-			  }
-			  technologies {
-				... on Skill {
-				  name
-				}
-			  }
-			  primaryImage {
-				url
-			  }
-			  secondaryImages {
-				url
-			  }
+			  
+			`,
+		});
 
-			}
-		  }
-		  
-		`,
-	});
-
-	return {
-		props: {
-			caseStudies: mapCaseStudies(data.caseStudies),
-		},
-	};
+		return {
+			props: {
+				caseStudies: mapCaseStudies(data.caseStudies),
+			},
+		};
+	} catch {
+		return {
+			props: {
+				caseStudies: [mockCaseStudy],
+			},
+		};
+	}
 }
 
 export default CaseStudiesPage;
