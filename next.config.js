@@ -1,9 +1,15 @@
 const { withSentryConfig } = require('@sentry/nextjs');
 
+const assetPrefix = process.env.NEXT_PUBLIC_ASSET_HOST;
+const imageDomains = [
+	process.env.NEXT_IMAGE_ALLOWED_DOMAINS,
+	process.env.NEXT_IMAGE_ALLOWED_DOMAINS2,
+].filter(Boolean);
+
 const moduleExports = {
 	poweredByHeader: false,
 	swcMinify: true,
-	assetPrefix: process.env.NEXT_PUBLIC_ASSET_HOST || '',
+	...(assetPrefix ? { assetPrefix } : {}),
 	productionBrowserSourceMaps: process.env.NEXT_PUBLIC_NODE_ENV === 'production',
 	webpack(config) {
 		config.module.rules.push({
@@ -19,12 +25,7 @@ const moduleExports = {
 		MAILCHIMP_AUDIENCE_ID: process.env.NEXT_PUBLIC_MAILCHIMP_AUDIENCE_ID || '',
 	},
 	images: {
-
-		domains: [
-			process.env.NEXT_IMAGE_ALLOWED_DOMAINS,
-			process.env.NEXT_IMAGE_ALLOWED_DOMAINS2,
-		],
-		
+		domains: imageDomains,
 	},
 };
 
