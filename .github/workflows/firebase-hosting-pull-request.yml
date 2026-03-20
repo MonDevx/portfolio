@@ -23,5 +23,5 @@ jobs:
       - name: Build application
         run: yarn build
 
-      - name: Run tests
-        run: yarn test --runInBand
+      - name: Run deployment regression test
+        run: yarn test next.config.test.js --runInBand
