@@ -1,21 +1,27 @@
 import { ICaseStudy } from '@types';
 
 export const mockCaseStudy: ICaseStudy = {
-	id: 'ckxnmvyrk2itv0d18rg1lnmm9',
-	title: 'Subscriptions Service',
-	slug: 'holland-and-barrett-subscriptions-service',
-	seoDescription: 'Some SEO description',
+	id: 'senior-project-real-estate',
+	title: 'Real Estate Web Application',
+	slug: 'senior-project-real-estate-web-application',
+	seoDescription: 'Senior project: a full-stack real estate website built with React.js and Node.js.',
 	client: {
-		name: 'Holland & Barrett',
-		logo: 'https://media.graphcms.com/CzdmdudMQ4mUl4OQJQS2',
+		name: 'Mae Fah Luang University (Senior Project)',
+		logo: '/assets/companies/mfu.webp',
 	},
-	content: 'Case Study coming soon\n',
+	content:
+		'Developed a real estate website as my senior project using React.js and Node.js.\n\n' +
+		'- Built a full-stack web application for listing and searching real estate properties\n' +
+		'- Implemented front-end with React.js and back-end REST API with Node.js\n' +
+		'- Managed data with a relational database\n\n' +
+		'[GitHub](https://qrgo.page.link/85Lpw)\n',
 	technologies: [
-
+		{ name: 'React.js' },
+		{ name: 'Node.js' },
 	],
-	primaryImage: 'https://media.graphcms.com/1WO5SPTlRd2KnNrJH0hF',
+	primaryImage: '/assets/casestudy/webEx.webp',
 	secondaryImages: [
-		'https://media.graphcms.com/A925zBXITvGXd25ICydM',
-		'https://media.graphcms.com/sVY8ZHnBSHiZeeVjFS3f',
+		'/assets/casestudy/webEx2.webp',
+		'/assets/casestudy/mb.webp',
 	],
 };

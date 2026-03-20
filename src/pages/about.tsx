@@ -23,7 +23,7 @@ interface IProps {
 	education: IEducation[];
 }
 
-const cvDownloadPath = `${process.env.NEXT_PUBLIC_BASE_PATH || ''}/cv-2022.pdf`;
+const cvDownloadPath = `${process.env.NEXT_PUBLIC_BASE_PATH || ''}/PeemapodNeamkur.pdf`;
 const hasGraphCmsConfig = Boolean(
 	process.env.NEXT_PUBLIC_GRAPHCMS_PROJECT_ID &&
 	process.env.NEXT_PUBLIC_GRAPHCMS_ENV
@@ -34,23 +34,22 @@ const AboutPage: NextPage<IProps> = ({ jobs, education }) => {
 	return (
 		<AnimatePage>
 			<SeoHead
-				title="About Peemapod Neamkur, a Software Developer from BKK"
-				description="			Able to adapt and work in multiple positions,
-				quick learner and able to study new things on my
-				own through Udemy. Keen Interest in
-				programming."
+				title="About Peemapod Neamkur, a Full Stack Developer from Bangkok"
+				description="Full Stack Developer with 3 years' experience in web and mobile applications using React.js, Node.js, Flutter, and Spring Boot."
 			/>
 			<Container>
 				<h1 className="headline text-3xl md:text-5xl lg:text-6xl mt-8">
 					Hey, I&apos;m Peemapod Neamkur
 				</h1>
 				<h2 className="font-bold text-xl md:text-2xl mt-2">
-					Software Developer from BKK
+					Full Stack Developer from Bangkok
 				</h2>
 				<p className="mt-8">
-					Able to adapt and work in multiple positions, quick learner and able
-					to study new things on my own through Udemy. Keen Interest in
-					programming
+					Full Stack Developer with 3 years&apos; experience in web and mobile
+					applications using React.js, Node.js, Flutter, and Spring Boot. Fast
+					learner with strong adaptability and passion for continuous skill
+					growth. Proven ability to deliver scalable, high-quality solutions in
+					agile environments.
 				</p>
 
 				<h2 className="headline mt-12 mb-4 text-4xl">Experience</h2>
@@ -59,8 +58,7 @@ const AboutPage: NextPage<IProps> = ({ jobs, education }) => {
 
 				<h2 className="headline mt-12 mb-4 text-4xl">Education</h2>
 				<p className="mb-6">
-					I am mostly self-taught, but here are some of the most relevant
-					certifications I have achieved:
+					Here is my educational background:
 				</p>
 
 				<Education education={education} />
