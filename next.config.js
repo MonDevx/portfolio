@@ -1,6 +1,8 @@
 const { withSentryConfig } = require('@sentry/nextjs');
 
 const assetPrefix = process.env.NEXT_PUBLIC_ASSET_HOST;
+const sentryAuthToken =
+	process.env.SENTRY_AUTH_TOKEN || process.env.NEXT_PUBLIC_SENTRY_AUTH_TOKEN;
 const imageDomains = [
 	process.env.NEXT_IMAGE_ALLOWED_DOMAINS,
 	process.env.NEXT_IMAGE_ALLOWED_DOMAINS2,
@@ -31,11 +33,13 @@ const moduleExports = {
 
 const sentryWebpackPluginOptions = {
 	silent: false, // Suppresses all logs
-	authToken: process.env.NEXT_PUBLIC_SENTRY_AUTH_TOKEN,
+	authToken: sentryAuthToken,
 
 
 	// For all available options, see:
 	// https://github.com/getsentry/sentry-webpack-plugin#options.
 };
 
-module.exports = withSentryConfig(moduleExports, sentryWebpackPluginOptions);
+module.exports = sentryAuthToken
+	? withSentryConfig(moduleExports, sentryWebpackPluginOptions)
+	: moduleExports;
