@@ -3,7 +3,6 @@ import { ICaseStudy } from '@types';
 
 import { Box } from 'Atoms/Box';
 import { FloatingImages } from 'Atoms/FloatingImages';
-import Image from 'next/image';
 import Link from 'next/link';
 
 export interface CaseStudyProps extends ICaseStudy {
@@ -35,7 +34,7 @@ const CaseStudy = ({
 							<div className="flex flex-col md:w-1/2 h-full">
 								<h1 className="text-xl md:text-3xl font-bold mb-2">{title}</h1>
 								<div className="mb-4 flex gap-2 items-center">
-									<Image
+									<img
 										src={client.logo}
 										alt={client.name}
 										width={32}

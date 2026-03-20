@@ -1,0 +1,30 @@
+name: Validate GitHub Pages deployment on PR
+
+on: pull_request
+
+jobs:
+  build_and_preview:
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: yarn
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build application
+        env:
+          NEXT_PUBLIC_STATIC_EXPORT: 'true'
+          NEXT_PUBLIC_BASE_PATH: '/portfolio'
+        run: yarn build
+
+      - name: Run deployment regression test
+        run: yarn test next.config.test.js --runInBand

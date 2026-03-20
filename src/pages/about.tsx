@@ -2,6 +2,7 @@ import { IEducation, IJob} from '@types';
 
 import { client } from 'apollo-client';
 import { gql } from '@apollo/client';
+import { mockJobs, mockSchool } from '../mockData';
 import { mapEducation } from 'utils/mappings/mapEducation';
 import { mapJobs } from 'utils/mappings/mapJobs';
 
@@ -21,6 +22,13 @@ interface IProps {
 	jobs: IJob[];
 	education: IEducation[];
 }
+
+const cvDownloadPath = `${process.env.NEXT_PUBLIC_BASE_PATH || ''}/cv-2022.pdf`;
+const hasGraphCmsConfig = Boolean(
+	process.env.NEXT_PUBLIC_GRAPHCMS_PROJECT_ID &&
+	process.env.NEXT_PUBLIC_GRAPHCMS_ENV
+);
+const fallbackJobs = [mockJobs[0]];
 
 const AboutPage: NextPage<IProps> = ({ jobs, education }) => {
 	return (
@@ -59,7 +67,7 @@ const AboutPage: NextPage<IProps> = ({ jobs, education }) => {
 
 				<div className="flex justify-center mt-8">
 					<Button
-						href="/cv-2022.pdf"
+						href={cvDownloadPath}
 						download={true}
 						className="group flex gap-2 whitespace-nowrap"
 					>
@@ -76,54 +84,72 @@ const AboutPage: NextPage<IProps> = ({ jobs, education }) => {
 	);
 };
 
-export async function getServerSideProps() {
-	const { data } = await client.query({
-		query: gql`
-			query AboutPageQuery {
-				jobs(orderBy: fromDate_DESC) {
-					id
-					jobTitle
-					fromDate
-					toDate
-					description {
-						markdown
-					}
-					company {
-						name
-						url
-						logo {
-							url
-						}
-					}
-					skills {
-						name
-					}
-				}
-				educations(orderBy: date_DESC) {
-					id
-					course
-					date
-					courseContents {
-						name
-					}
-					institute {
-						name
-						url
-						logo {
-							url
-						}
-					}
-				}
-			}
-		`,
-	});
+export async function getStaticProps() {
+	if (!hasGraphCmsConfig) {
+		return {
+			props: {
+				education: [mockSchool],
+				jobs: fallbackJobs,
+			},
+		};
+	}
 
-	return {
-		props: {
-			education: mapEducation(data.educations),
-			jobs: mapJobs(data.jobs),
-		},
-	};
+	try {
+		const { data } = await client.query({
+			query: gql`
+				query AboutPageQuery {
+					jobs(orderBy: fromDate_DESC) {
+						id
+						jobTitle
+						fromDate
+						toDate
+						description {
+							markdown
+						}
+						company {
+							name
+							url
+							logo {
+								url
+							}
+						}
+						skills {
+							name
+						}
+					}
+					educations(orderBy: date_DESC) {
+						id
+						course
+						date
+						courseContents {
+							name
+						}
+						institute {
+							name
+							url
+							logo {
+								url
+							}
+						}
+					}
+				}
+			`,
+		});
+
+		return {
+			props: {
+				education: mapEducation(data.educations),
+				jobs: mapJobs(data.jobs),
+			},
+		};
+	} catch {
+		return {
+			props: {
+				education: [mockSchool],
+				jobs: fallbackJobs,
+			},
+		};
+	}
 }
 
 export default AboutPage;

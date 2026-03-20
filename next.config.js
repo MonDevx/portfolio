@@ -1,9 +1,21 @@
 const { withSentryConfig } = require('@sentry/nextjs');
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH;
+const isStaticExport = process.env.NEXT_PUBLIC_STATIC_EXPORT === 'true';
+const assetPrefix = process.env.NEXT_PUBLIC_ASSET_HOST || basePath;
+const sentryAuthToken =
+	process.env.SENTRY_AUTH_TOKEN || process.env.NEXT_PUBLIC_SENTRY_AUTH_TOKEN;
+const imageDomains = [
+	process.env.NEXT_IMAGE_ALLOWED_DOMAINS,
+	process.env.NEXT_IMAGE_ALLOWED_DOMAINS2,
+].filter(Boolean);
+
 const moduleExports = {
 	poweredByHeader: false,
 	swcMinify: true,
-	assetPrefix: process.env.NEXT_PUBLIC_ASSET_HOST || '',
+	...(basePath ? { basePath } : {}),
+	...(assetPrefix ? { assetPrefix } : {}),
+	...(isStaticExport ? { trailingSlash: true } : {}),
 	productionBrowserSourceMaps: process.env.NEXT_PUBLIC_NODE_ENV === 'production',
 	webpack(config) {
 		config.module.rules.push({
@@ -19,22 +31,20 @@ const moduleExports = {
 		MAILCHIMP_AUDIENCE_ID: process.env.NEXT_PUBLIC_MAILCHIMP_AUDIENCE_ID || '',
 	},
 	images: {
-
-		domains: [
-			process.env.NEXT_IMAGE_ALLOWED_DOMAINS,
-			process.env.NEXT_IMAGE_ALLOWED_DOMAINS2,
-		],
-		
+		domains: imageDomains,
+		...(isStaticExport ? { unoptimized: true } : {}),
 	},
 };
 
 const sentryWebpackPluginOptions = {
-	silent: false, // Suppresses all logs
-	authToken: process.env.NEXT_PUBLIC_SENTRY_AUTH_TOKEN,
+	silent: false, // Keeps Sentry CLI logs enabled
+	authToken: sentryAuthToken,
 
 
 	// For all available options, see:
 	// https://github.com/getsentry/sentry-webpack-plugin#options.
 };
 
-module.exports = withSentryConfig(moduleExports, sentryWebpackPluginOptions);
+module.exports = sentryAuthToken
+	? withSentryConfig(moduleExports, sentryWebpackPluginOptions)
+	: moduleExports;

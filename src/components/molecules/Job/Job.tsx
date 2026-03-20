@@ -2,7 +2,6 @@ import { IJob } from '@types';
 
 import { FC } from 'react';
 import { format } from 'date-fns';
-import Image from 'next/image';
 
 import { Box } from 'Atoms/Box';
 
@@ -18,7 +17,7 @@ const Job: FC<Omit<IJob, 'description'>> = ({
 		<Box>
 			<div className="flex gap-4 items-start md:items-center">
 				{company.logo && (
-					<Image
+					<img
 						src={company.logo}
 						alt={company.name}
 						width={64}

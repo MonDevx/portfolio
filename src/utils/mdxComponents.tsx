@@ -1,7 +1,6 @@
 import { Components } from 'react-markdown/lib/ast-to-react';
 
 import { dracula } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
-import Image from 'next/image';
 import { LightAsync as SyntaxHighlighter } from 'react-syntax-highlighter';
 
 export const mdxComponents: Components = {
@@ -35,12 +34,10 @@ export const mdxComponents: Components = {
 	),
 	img: ({ alt, src }) => (
 		<div className="relative w-full aspect-video drop-shadow-xl">
-			<Image
+			<img
 				src={src!}
-				alt={alt}
-				layout="fill"
-				objectFit="cover"
-				className="mt-4 mb-4"
+				alt={alt || ''}
+				className="mt-4 mb-4 w-full h-full object-cover"
 			/>
 		</div>
 	),
