@@ -6,33 +6,35 @@ import Typed from 'react-typed';
 const IndexPage = () => {
 	const talkAbout = [
 		'React.js',
-		'JavaScript',
+		'Node.js',
 		'Flutter',
-		'HTML',
-		'CSS',
-		'VB.net',
+		'Spring Boot',
+		'JavaScript',
+		'TypeScript',
 		'Java',
-		'C#',
-		'PL/SQL',
+		'VB.NET',
+		'SQL',
+		'Docker',
 	];
 
 	return (
 		<AnimatePage>
 			<SeoHead
-				title="Solution Developer – Peemapod Neamkur"
-				description="A Front-End Software Engineer with a focus on JavaScript and React. I have more than 10 years experience working in software engineering and consulting."
+				title="Full Stack Developer – Peemapod Neamkur"
+				description="Full Stack Developer with 3 years' experience in web and mobile applications using React.js, Node.js, Flutter, and Spring Boot."
 				keywords={[
 					'Software Engineer',
-					'Front-End',
 					'Full-Stack',
 					'React',
+					'Node.js',
+					'Flutter',
+					'Spring Boot',
 					'JavaScript',
-					'CSS',
-					'MUI',
-					'VB.net',
+					'TypeScript',
 					'Java',
-					'C#',
-					'PL/SQL',
+					'VB.NET',
+					'SQL',
+					'Docker',
 				]}
 			/>
 			<Container>
@@ -40,11 +42,9 @@ const IndexPage = () => {
 					Hey, I&apos;m Peemapod Neamkur 👋
 				</h1>
 				<p className="my-8 text-lg">
-					I am a passionate Software Engineer, specialised in front-end
-					development using React and TypeScript. As an advocate for web
-					performance and accessibility and an evangelist for the Jamstack, I
-					create amazing web applications to make the internet a better place.
-					You can talk to me about{' '}
+					I am a passionate Full Stack Developer with 3 years&apos; experience
+					building web and mobile applications. Specialised in React.js,
+					Node.js, Flutter, and Spring Boot. You can talk to me about{' '}
 					<Typed
 						loop
 						typeSpeed={80}
@@ -61,7 +61,7 @@ const IndexPage = () => {
 				<p>
 					P.S. this website is open-source and available on{' '}
 					<a
-						href="https://github.com/jakeherp/portfolio"
+						href="https://github.com/MonDevX/portfolio"
 						title="Link to Github repository"
 						target="_blank"
 						rel="noopener noreferrer"
