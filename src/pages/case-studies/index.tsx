@@ -23,7 +23,7 @@ const CaseStudiesPage: NextPage<IProps> = ({ caseStudies }) => {
 	return (
 		<AnimatePage>
 			<SeoHead
-				title="Software Engineering Case Studies – Jacob Herper"
+				title="Software Engineering Case Studies – Peemapod Neamkur"
 				description={`Here you can find ${caseStudies.length} case studies of projects I have worked on over the last few years. Learn how I have overcome challenges.`}
 			/>
 			<Container>

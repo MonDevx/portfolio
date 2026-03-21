@@ -8,8 +8,10 @@ export const Layout: FC = ({ children }) => {
 	const { resolvedTheme } = useTheme();
 
 	useEffect(() => {
+		if (!resolvedTheme) return;
+		const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
 		const favicon = document.querySelector("link[rel~='icon']") as any;
-		if (favicon) favicon.href = `/assets/favicon_${resolvedTheme}.svg`;
+		if (favicon) favicon.href = `${basePath}/assets/favicon_${resolvedTheme}.svg`;
 	}, [resolvedTheme]);
 
 	return (
