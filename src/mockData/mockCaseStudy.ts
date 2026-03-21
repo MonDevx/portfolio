@@ -16,8 +16,8 @@ export const mockCaseStudy: ICaseStudy = {
 		'- Managed data with a relational database\n\n' +
 		'[GitHub](https://qrgo.page.link/85Lpw)\n',
 	technologies: [
-		{ name: 'React.js' },
-		{ name: 'Node.js' },
+		'React.js',
+		'Node.js',
 	],
 	primaryImage: '/assets/casestudy/webEx.webp',
 	secondaryImages: [
